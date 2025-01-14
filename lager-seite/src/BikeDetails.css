@@ -1,0 +1,83 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+.logo-BikeDetails{
+    position: absolute;
+    right: 0;
+    height: 10% !important;
+    width: 18% !important;
+}
+#main-div-BikeDetails{
+
+    height: 100%;
+    width: 100%;
+}
+
+#header-BikeDetails{
+    /* background-color: red; */
+    height: 45%;
+    width: 100%;
+    display: flex;
+
+
+
+}
+#imgBike-div{
+    height: 15%;
+    width: 10%;
+    /* background-color: blue;margin-left: 5%; */
+    padding: 1px;
+}
+#imgBike{
+    height: 85%;
+    margin-top: 7.5%;
+    width: 100%;
+}
+#BikeDetails-div {
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 40%;
+    height: 65%;
+    display: flex;
+    flex-direction: column; /* Inhalt vertikal anordnen */
+
+    align-items: center; /* Inhalt horizontal zentrieren */
+    background-color: grey;
+}
+
+#imgBike-div, #BikeDetails-div{
+    margin-top: 25%;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    width: 45%;
+    height: 65%;
+
+}
+
+#Ueberschrift-BikeDetails{
+    margin-top: 5%;
+    font-size: 1.05rem;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+#BikeDetails-div ul{
+    margin-top: 3%;
+    font-size: 0.9rem;
+    font-size: 90%;
+    font-weight: 500;
+}
+
+#BikeDetails-div ul p{
+    margin-top: 5%;
+}
+#todolist-div{
+    height: 55%;
+    width: 100%;
+    /* background-color: blue; */
+
+}

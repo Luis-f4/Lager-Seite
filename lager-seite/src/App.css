@@ -1,0 +1,18 @@
+.App {
+
+    background-image: url('../public/Lager\ Hintergrund2.JPG');
+
+    background-size: cover;
+    /* background-position: center; */
+    background-position: 100% center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+
+    background-attachment: fixed;
+    background-size: contain;
+    background-size: 105vw 100vh; 
+}

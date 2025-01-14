@@ -1,0 +1,38 @@
+#row-main-div {
+    background-color: rgb(197, 196, 196);
+    border: black solid 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1%;
+    height: auto;
+    margin-top: 2%;
+    gap: 1%;
+}
+
+#row-main-div input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+#description-todo-row {
+    flex: 1;
+    margin: 0;
+    padding: 0 1%;
+    font-size: 0.9rem; /* Titel etwas kleiner */
+}
+
+#row-main-div select {
+    width: 35%; /* Breiteres Dropdown */
+    height: 2rem;
+    font-size: 1rem;
+    margin-right: 2%; /* Mehr Abstand zum Preis */
+}
+
+.geld {
+    margin-left: auto;
+    padding: 0 1%;
+    font-size: 1rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
