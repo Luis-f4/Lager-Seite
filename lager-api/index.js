@@ -17,7 +17,7 @@ let db;
       host: 'localhost',
       port: 3306,
       user: 'root',
-      password: 'LuisLinaXenia',
+      password: 'LuisXeniaLina',
       database: 'lager'
     });
     console.log('Mit der MySQL-Datenbank verbunden');
