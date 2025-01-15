@@ -17,7 +17,7 @@ const Todolist = ({ bike }) => {
     useEffect(() => {
         const fetchBikeDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/todolist/${bike.FahrradID}`); 
+                const response = await fetch(`http://85.215.204.43:8080/todolist/${bike.FahrradID}`); 
                 const data = await response.json();
                 setAuftraege(data);
 

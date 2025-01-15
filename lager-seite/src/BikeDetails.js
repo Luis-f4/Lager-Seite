@@ -14,7 +14,7 @@ const BikeDetails = () => {
     useEffect(() => {
         const fetchBikeDetails = async () => { 
             try {
-                const response = await fetch(`http://localhost:8080/bike/${id}`); // Hol die Details für das spezifische Bike
+                const response = await fetch(`http://85.215.204.43:8080/bike/${id}`); // Hol die Details für das spezifische Bike
                 const data = await response.json();
                 
                 // Überprüfe, ob das Ergebnis ein Array ist, und nimm das erste Element

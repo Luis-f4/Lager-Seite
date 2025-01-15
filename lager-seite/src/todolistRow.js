@@ -66,7 +66,7 @@ const TodolistRow = ({ auftrag }) => {
     // Funktion, um die Aktualisierung an den Server zu senden
     const sendUpdateToServer = async (updatedAuftrag) => {
         try {
-            const response = await fetch('http://localhost:8080/updateTodo', {
+            const response = await fetch('http://85.215.204.43:8080/updateTodo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -9,7 +9,7 @@ const Header = () => {
     useEffect(() => {
         const fetchAllIncome = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/getAllIncome`); 
+                const response = await fetch(`http://85.215.204.43:8080/getAllIncome`); 
                 const data = await response.json();
                 setAllIncome(data.totalIncome);
                 console.log("allIncome: ", data.totalIncome);
@@ -21,7 +21,7 @@ const Header = () => {
 
         const fetchRanking = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/getRanking`); 
+                const response = await fetch(`http://85.215.204.43:8080/getRanking`); 
                 const data = await response.json();
                 setRanking(data);
                 console.log("Ranking: ", data);

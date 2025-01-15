@@ -67,7 +67,7 @@ const CreateBike = () => {
 
         // Sende die Daten an die API
         try {
-            const response = await fetch('http://localhost:8080/createBike', {
+            const response = await fetch('http://85.215.204.43:8080/createBike', {
                 method: 'POST',
                 body: data
             });

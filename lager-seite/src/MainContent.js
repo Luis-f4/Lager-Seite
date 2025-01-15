@@ -11,7 +11,7 @@ const MainContent = () => {
         const fetchData = async () => {
             try {
                 //const response = await fetch('http://localhost:8080/allBikes'); echte adresse
-                const response = await fetch('http://localhost:8080/allBikes'); // adresse damit es im localen netzwerk funktioniert
+                const response = await fetch('http://85.215.204.43:8080/allBikes'); // adresse damit es im localen netzwerk funktioniert
                 const data = await response.json();
                 setBikes(data); // Speichere die Daten im Zustand
             } catch (error) {
