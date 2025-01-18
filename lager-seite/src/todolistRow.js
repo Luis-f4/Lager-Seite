@@ -5,6 +5,7 @@ const TodolistRow = ({ auftrag }) => {
     const [selectedBearbeiter, setSelectedBearbeiter] = useState(auftrag.Bearbeiter);
     const [isChecked, setIsChecked] = useState(auftrag.status === 'Erledigt'); // Für Checkbox Status
 
+    console.log("YDYDYD afutrag: ", auftrag);
     // Mapping von Bearbeiter-IDs zu Namen
     const bearbeiterMapping = {
         1: "Luis",
