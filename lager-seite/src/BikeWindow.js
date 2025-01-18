@@ -7,6 +7,7 @@ const BikeWindow = ({ bike }) => {
     const handleClick = () => {
         navigate(`/bike/${bike.FahrradID}`); // Navigiere zur BikeDetails-Seite
     };
+    console.log(bike);
 
     return (
         <div id="bike-window" onClick={handleClick} style={{ cursor: 'pointer' }}> {/* Füge den onClick-Event hinzu */}
