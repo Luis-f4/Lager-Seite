@@ -37,10 +37,10 @@ const CreateBike = () => {
     };
 
     const handleInputChange = (event) => {
-        const { name, value } = event.target;
+        const { name, value, type } = event.target;
         setFormData({
             ...formData,
-            [name]: value
+            [name]: type === 'number' ? value.replace(/[^0-9.]/g, '') : value, // Nur Zahlen erlauben
         });
     };
 
@@ -112,7 +112,7 @@ const CreateBike = () => {
 
                         <div className='input-CreateBike-DIV'>
                             <label htmlFor="Größe">Größe:</label>
-                            <input type="number" id="Größe" name="groesse" onChange={handleInputChange} />
+                            <input type="number" min="0" id="Größe" name="groesse" onChange={handleInputChange} />
                         </div>
 
                         <div className='input-CreateBike-DIV'>
@@ -127,12 +127,12 @@ const CreateBike = () => {
 
                         <div className='input-CreateBike-DIV'>
                             <label htmlFor="Einkaufspreis">Einkaufspreis:</label>
-                            <input type="number" id="Einkaufspreis" name="einkaufspreis" onChange={handleInputChange} />
+                            <input type="number" min="0" id="Einkaufspreis" name="einkaufspreis" onChange={handleInputChange} />
                         </div>
 
                         <div className='input-CreateBike-DIV'>
                             <label htmlFor="Verkaufspreis">Verkaufspreis:</label>
-                            <input type="number" id="Verkaufspreis" name="verkaufspreis" onChange={handleInputChange} />
+                            <input type="number" min="0" id="Verkaufspreis" name="verkaufspreis" onChange={handleInputChange} />
                         </div>
 
                         <div className='input-CreateBike-DIV'>
