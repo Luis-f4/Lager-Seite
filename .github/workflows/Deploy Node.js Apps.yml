@@ -1,0 +1,38 @@
+name: Deploy Node.js Apps
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH and Deploy
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 85.215.204.43 >> ~/.ssh/known_hosts
+
+          ssh -i ~/.ssh/id_rsa root@85.215.204.43 << 'EOF'
+            set -e
+            su - programmieren
+          
+            cd /home/programmieren/lager-Seite/lager-api
+            git pull
+            npm install
+            screen -S api_lager -X quit || echo "API screen not running"
+            screen -S api_lager -d -m bash -c "cd /home/programmieren/lager-Seite/lager-api && node index.js"
+            
+            cd /home/programmieren/lager-Seite/lager-seite
+            git pull
+            npm install
+            npm run build
+            screen -S frontend_lager -X quit || echo "Frontend screen not running"
+            screen -S frontend_lager -d -m bash -c "cd /home/programmieren/lager-Seite/lager-seite && npm run start"
+          EOF
