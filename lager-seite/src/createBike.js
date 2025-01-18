@@ -112,7 +112,7 @@ const CreateBike = () => {
 
                         <div className='input-CreateBike-DIV'>
                             <label htmlFor="Größe">Größe:</label>
-                            <input type="text" id="Größe" name="groesse" onChange={handleInputChange} />
+                            <input type="number" id="Größe" name="groesse" onChange={handleInputChange} />
                         </div>
 
                         <div className='input-CreateBike-DIV'>
@@ -127,12 +127,12 @@ const CreateBike = () => {
 
                         <div className='input-CreateBike-DIV'>
                             <label htmlFor="Einkaufspreis">Einkaufspreis:</label>
-                            <input type="text" id="Einkaufspreis" name="einkaufspreis" onChange={handleInputChange} />
+                            <input type="number" id="Einkaufspreis" name="einkaufspreis" onChange={handleInputChange} />
                         </div>
 
                         <div className='input-CreateBike-DIV'>
                             <label htmlFor="Verkaufspreis">Verkaufspreis:</label>
-                            <input type="text" id="Verkaufspreis" name="verkaufspreis" onChange={handleInputChange} />
+                            <input type="number" id="Verkaufspreis" name="verkaufspreis" onChange={handleInputChange} />
                         </div>
 
                         <div className='input-CreateBike-DIV'>
