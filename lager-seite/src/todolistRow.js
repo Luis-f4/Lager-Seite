@@ -47,7 +47,7 @@ const TodolistRow = ({ auftrag }) => {
     // Funktion, die bei Änderung der Checkbox aufgerufen wird
     const handleCheckboxChange = async (event) => {
         const checked = event.target.checked;
-    
+
         // Checkbox darf nur geklickt werden, wenn der Bearbeiter nicht "Frei" ist
         if (selectedBearbeiter !== 4) { // 4 = Frei
             setIsChecked(checked); // Update Checkbox-Status im UI
@@ -60,6 +60,47 @@ const TodolistRow = ({ auftrag }) => {
                 geld: auftrag.geld,
                 Beschreibung: auftrag.Beschreibung
             });
+
+            // Anhand des Status der Checkbox, Anzahl erledigter Todos erhöhen oder verringern
+            if (checked) {
+                await incrementTodos(auftrag.TodolisteID);  // Anzahl erledigter Todos erhöhen
+            } else {
+                await reduceTodos(auftrag.TodolisteID);  // Anzahl erledigter Todos senken
+            }
+        }
+    };
+
+    // API-Aufruf zum Erhöhen der Anzahl erledigter Todos
+    const incrementTodos = async (todolisteID) => {
+        try {
+            const response = await fetch(`http://85.215.204.43:8080/increment/${todolisteID}`, {
+                method: 'PATCH', // PATCH-Methode
+            });
+
+            if (response.ok) {
+                console.log("Anzahl erledigter Todos erfolgreich erhöht.");
+            } else {
+                console.error("Fehler beim Erhöhen der Anzahl erledigter Todos:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Fehler bei der Anfrage zum Erhöhen der Todos:", error);
+        }
+    };
+
+    // API-Aufruf zum Senken der Anzahl erledigter Todos
+    const reduceTodos = async (todolisteID) => {
+        try {
+            const response = await fetch(`http://85.215.204.43:8080/reduce/${todolisteID}`, {
+                method: 'PATCH', // PATCH-Methode
+            });
+
+            if (response.ok) {
+                console.log("Anzahl erledigter Todos erfolgreich verringert.");
+            } else {
+                console.error("Fehler beim Verringern der Anzahl erledigter Todos:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Fehler bei der Anfrage zum Verringern der Todos:", error);
         }
     };
 

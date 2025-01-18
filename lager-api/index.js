@@ -237,7 +237,49 @@ app.get('/todoStats/:Bikeid', async (req, res) => {
 });
 
 
+app.patch('/increment/:todolisteID', async (req, res) => {
+  const todolisteID = req.params.todolisteID;
+  try {
+    const query = `
+      UPDATE todoliste
+      SET abgeschlosseneTodos = abgeschlosseneTodos + 1
+      WHERE TodolisteID = ?`;
 
+    const result = await db.query(query, [todolisteID]);
+
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: 'Zahl erfolgreich erhöht' });
+    } else {
+      res.status(404).json({ message: 'Todoliste nicht gefunden' });
+    }
+
+  } catch (err) {
+    console.error('Fehler beim ändern der Daten:', err);
+    res.status(500).send('Fehler beim ändern der Daten');
+  }
+});
+
+app.patch('/reduce/:todolisteID', async (req, res) => {
+  const todolisteID = req.params.todolisteID;
+  try {
+    const query = `
+      UPDATE todoliste
+      SET abgeschlosseneTodos = abgeschlosseneTodos - 1
+      WHERE TodolisteID = ?`;
+
+    const result = await db.query(query, [todolisteID]);
+
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: 'Zahl erfolgreich verringert' });
+    } else {
+      res.status(404).json({ message: 'Todoliste nicht gefunden' });
+    }
+
+  } catch (err) {
+    console.error('Fehler beim ändern der Daten:', err);
+    res.status(500).send('Fehler beim ändern der Daten');
+  }
+});
 
 
 
