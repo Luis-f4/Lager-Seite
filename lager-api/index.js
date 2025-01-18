@@ -241,9 +241,10 @@ app.patch('/increment/:todolisteID', async (req, res) => {
   const todolisteID = req.params.todolisteID;
   try {
     const query = `
-      UPDATE todoliste
-      SET abgeschlosseneTodos = abgeschlosseneTodos + 1
-      WHERE TodolisteID = ?`;
+    UPDATE todoliste
+    JOIN auftrag ON auftrag.TodolisteID = todoliste.TodolisteID
+    SET todoliste.abgeschlosseneTodos = todoliste.abgeschlosseneTodos + 1
+    WHERE auftrag.AuftragID = ?`;
 
     const result = await db.query(query, [todolisteID]);
 
@@ -264,8 +265,9 @@ app.patch('/reduce/:todolisteID', async (req, res) => {
   try {
     const query = `
       UPDATE todoliste
-      SET abgeschlosseneTodos = abgeschlosseneTodos - 1
-      WHERE TodolisteID = ?`;
+    JOIN auftrag ON auftrag.TodolisteID = todoliste.TodolisteID
+    SET todoliste.abgeschlosseneTodos = todoliste.abgeschlosseneTodos - 1
+    WHERE auftrag.AuftragID = ?`;
 
     const result = await db.query(query, [todolisteID]);
 

@@ -64,17 +64,17 @@ const TodolistRow = ({ auftrag }) => {
 
             // Anhand des Status der Checkbox, Anzahl erledigter Todos erhöhen oder verringern
             if (checked) {
-                await incrementTodos(auftrag.TodolisteID);  // Anzahl erledigter Todos erhöhen
+                await incrementTodos(auftrag.AuftragID);  // Anzahl erledigter Todos erhöhen
             } else {
-                await reduceTodos(auftrag.TodolisteID);  // Anzahl erledigter Todos senken
+                await reduceTodos(auftrag.AuftragID);  // Anzahl erledigter Todos senken
             }
         }
     };
 
     // API-Aufruf zum Erhöhen der Anzahl erledigter Todos
-    const incrementTodos = async (todolisteID) => {
+    const incrementTodos = async (AuftragID) => {
         try {
-            const response = await fetch(`http://85.215.204.43:8080/increment/${todolisteID}`, {
+            const response = await fetch(`http://85.215.204.43:8080/increment/${AuftragID}`, {
                 method: 'PATCH', // PATCH-Methode
             });
 
@@ -89,9 +89,9 @@ const TodolistRow = ({ auftrag }) => {
     };
 
     // API-Aufruf zum Senken der Anzahl erledigter Todos
-    const reduceTodos = async (todolisteID) => {
+    const reduceTodos = async (AuftragID) => {
         try {
-            const response = await fetch(`http://85.215.204.43:8080/reduce/${todolisteID}`, {
+            const response = await fetch(`http://85.215.204.43:8080/reduce/${AuftragID}`, {
                 method: 'PATCH', // PATCH-Methode
             });
 
