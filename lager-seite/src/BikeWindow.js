@@ -1,4 +1,5 @@
 import './BikeWindow.css';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importiere useNavigate
 
 const BikeWindow = ({ bike }) => {
