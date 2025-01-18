@@ -218,21 +218,21 @@ async function updateFahrradStatus(callback) {
 app.get('/todoStats/:Bikeid', async (req, res) => {
   const Bikeid = req.params.Bikeid;
   const query = `
-    SELECT abgeschlosseneTodos, anzahlTodos
-    FROM todoliste
-    WHERE FahrradID = ?`;
+      SELECT abgeschlosseneTodos, anzahlTodos
+      FROM todoliste
+      WHERE FahrradID = ?`;
 
   try {
-    const [results] = await db.query(query, [Bikeid]);
-    
-    if (results.length === 0) {
-      return res.status(404).send('Keine Einträge für diese FahrradID gefunden');
-    }
+      const [results] = await db.query(query, [Bikeid]);
+      
+      if (results.length === 0) {
+          return res.status(404).send('Keine Einträge für diese FahrradID gefunden');
+      }
 
-    res.json(results[0]); // Sende nur das erste Ergebnis zurück
+      res.json(results[0]); // Sende nur das erste Ergebnis zurück
   } catch (err) {
-    console.error('Fehler beim Abrufen der Daten:', err);
-    res.status(500).send('Fehler beim Abrufen der Daten');
+      console.error('Fehler beim Abrufen der Daten:', err);
+      res.status(500).send('Fehler beim Abrufen der Daten');
   }
 });
 

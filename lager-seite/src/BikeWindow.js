@@ -7,31 +7,36 @@ const BikeWindow = ({ bike }) => {
     const [todoStats, setTodoStats] = useState({ completed: 0, total: 0 }); 
 
     const handleClick = () => {
+        if (!bike?.FahrradID) {
+            console.error('FahrradID ist undefined');
+            return;
+        }
         navigate(`/bike/${bike.FahrradID}`); // Navigiere zur BikeDetails-Seite
     };
 
-    ////
-    //Anzahl gesammter und abgeschlossener Todos abfragen
-
     useEffect(() => {
+        if (!bike?.FahrradID) return; // Verhindert, dass der Effekt ohne gültige FahrradID ausgeführt wird.
+
         const fetchTodoStats = async () => {
             try {
+                console.log(`Fetching todo stats for BikeID: ${bike.FahrradID}`);
                 const response = await fetch(`http://85.215.204.43:8080/todoStats/${bike.FahrradID}`);
                 if (!response.ok) {
                     throw new Error('Fehler beim Abrufen der Todo-Statistiken');
                 }
                 const data = await response.json();
-                setTodoStats({ completed: data.abgeschlosseneTodos, total: data.anzahlTodos });
+                setTodoStats({
+                    completed: data.abgeschlosseneTodos || 0,
+                    total: data.anzahlTodos || 0
+                });
             } catch (error) {
                 console.error('Fehler beim Abrufen der Todo-Statistiken:', error);
             }
         };
-    
-        fetchTodoStats();
-    }, [bike.FahrradID]); // Effekt wird erneut ausgeführt, wenn sich die FahrradID ändert
 
-    
-    ////
+        fetchTodoStats();
+    }, [bike?.FahrradID]);
+
     return (
         <div id="bike-window" onClick={handleClick} style={{ cursor: 'pointer' }}> {/* Füge den onClick-Event hinzu */}
             <div id='img-div'>
@@ -42,10 +47,10 @@ const BikeWindow = ({ bike }) => {
                 />
             </div>
             <div id='text-div'>
-                <h3>{bike.Name}</h3>
+                <h3>{bike?.Name || 'Unbekanntes Fahrrad'}</h3>
                 <ul id='liste-BikeWindow'>
-                    <li>Modell: {bike.Modell}</li>
-                    <li>Status: {bike.Status}</li>
+                    <li>Modell: {bike?.Modell || 'Unbekannt'}</li>
+                    <li>Status: {bike?.Status || 'Unbekannt'}</li>
                     <li>{todoStats.completed}/{todoStats.total} Todos</li> 
                 </ul>
             </div>
