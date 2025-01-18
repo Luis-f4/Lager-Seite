@@ -3,12 +3,34 @@ import { useNavigate } from 'react-router-dom'; // Importiere useNavigate
 
 const BikeWindow = ({ bike }) => {
     const navigate = useNavigate(); // Hole die navigate Funktion von React Router
+    const [todoStats, setTodoStats] = useState({ completed: 0, total: 0 }); 
 
     const handleClick = () => {
         navigate(`/bike/${bike.FahrradID}`); // Navigiere zur BikeDetails-Seite
     };
-    console.log(bike);
 
+    ////
+    //Anzahl gesammter und abgeschlossener Todos abfragen
+
+    useEffect(() => {
+        const fetchTodoStats = async () => {
+            try {
+                const response = await fetch(`http://85.215.204.43:8080/todoStats/${bike.FahrradID}`);
+                if (!response.ok) {
+                    throw new Error('Fehler beim Abrufen der Todo-Statistiken');
+                }
+                const data = await response.json(); 
+                setTodoStats({ completed: data.completed, total: data.total });
+            } catch (error) {
+                console.error('Fehler beim Abrufen der Todo-Statistiken:', error);
+            }
+        };
+
+        fetchTodoStats();
+    }, [bike.FahrradID]); // Effekt wird erneut ausgeführt, wenn sich die FahrradID ändert
+
+    
+    ////
     return (
         <div id="bike-window" onClick={handleClick} style={{ cursor: 'pointer' }}> {/* Füge den onClick-Event hinzu */}
             <div id='img-div'>
@@ -23,7 +45,7 @@ const BikeWindow = ({ bike }) => {
                 <ul id='liste-BikeWindow'>
                     <li>Modell: {bike.Modell}</li>
                     <li>Status: {bike.Status}</li>
-                    <li>3/5 Todos</li>
+                    <li>{todoStats.completed}/{todoStats.total} Todos</li> 
                 </ul>
             </div>
         </div>

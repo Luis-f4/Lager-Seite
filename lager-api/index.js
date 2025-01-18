@@ -214,6 +214,24 @@ async function updateFahrradStatus(callback) {
 }
 
 
+// Funktion um gesammte und abgeschlossene Todos zu sehen
+app.get('/todoStats/:Bikeid', async (req, res) => {
+  const Bikeid = req.params.Bikeid;
+  const query = `
+    SELECT abgeschlosseneTodos, anzahlTodos
+    FROM todoliste
+    WHERE f.FahrradID = ?`;
+
+  try {
+    const [results] = await db.query(query, [Bikeid]);
+    res.json(results);
+  } catch (err) {
+    console.error('Fehler beim Abrufen der Daten:', err);
+    res.status(500).send('Fehler beim Abrufen der Daten');
+  }
+});
+
+
 
 
 
