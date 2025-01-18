@@ -220,11 +220,16 @@ app.get('/todoStats/:Bikeid', async (req, res) => {
   const query = `
     SELECT abgeschlosseneTodos, anzahlTodos
     FROM todoliste
-    WHERE f.FahrradID = ?`;
+    WHERE FahrradID = ?`;
 
   try {
     const [results] = await db.query(query, [Bikeid]);
-    res.json(results);
+    
+    if (results.length === 0) {
+      return res.status(404).send('Keine Einträge für diese FahrradID gefunden');
+    }
+
+    res.json(results[0]); // Sende nur das erste Ergebnis zurück
   } catch (err) {
     console.error('Fehler beim Abrufen der Daten:', err);
     res.status(500).send('Fehler beim Abrufen der Daten');

@@ -20,13 +20,13 @@ const BikeWindow = ({ bike }) => {
                 if (!response.ok) {
                     throw new Error('Fehler beim Abrufen der Todo-Statistiken');
                 }
-                const data = await response.json(); 
-                setTodoStats({ completed: data.completed, total: data.total });
+                const data = await response.json();
+                setTodoStats({ completed: data.abgeschlosseneTodos, total: data.anzahlTodos });
             } catch (error) {
                 console.error('Fehler beim Abrufen der Todo-Statistiken:', error);
             }
         };
-
+    
         fetchTodoStats();
     }, [bike.FahrradID]); // Effekt wird erneut ausgeführt, wenn sich die FahrradID ändert
 
