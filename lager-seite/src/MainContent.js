@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './MainContent.css';
+import './MainCOntent.css';
 import BikeWindow from './BikeWindow';
 import { useNavigate } from 'react-router-dom';
 
