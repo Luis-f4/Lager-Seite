@@ -6,12 +6,17 @@ import { useNavigate } from 'react-router-dom';
 const MainContent = () => {
     const [bikes, setBikes] = useState([]); // Zustand für die Bikes
     const navigate = useNavigate(); 
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 //const response = await fetch('http://localhost:8080/allBikes'); echte adresse
-                const response = await fetch('http://85.215.204.43:8080/allBikes'); // adresse damit es im localen netzwerk funktioniert
+                if(searchTerm != "" && searchTerm != " "){
+                    const response = await fetch(`http://85.215.204.43:8080/getBikes/${searchTerm}`);
+                }else{
+                    const response = await fetch('http://85.215.204.43:8080/allBikes'); // adresse damit es im localen netzwerk funktioniert
+                }
                 const data = await response.json();
                 setBikes(data); // Speichere die Daten im Zustand
             } catch (error) {
@@ -30,7 +35,12 @@ const MainContent = () => {
     return (
         <div id="MainContent-div">
             <div id='searchbar-div'>
-                <input type='text' id='Searchbar' />
+                <input 
+                type='text' 
+                id='Searchbar'     
+                value={searchTerm} 
+                onChange={(e) => setSearchTerm(e.target.value)} />
+                
                 <select name="dropdown" id="dropdown">
                     <option value="Alter">Alter</option>
                     <option value="wert">wert</option>
