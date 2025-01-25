@@ -11,12 +11,17 @@ const MainContent = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                //const response = await fetch('http://localhost:8080/allBikes'); echte adresse
-                if(searchTerm != "" && searchTerm != " "){
-                    const response = await fetch(`http://85.215.204.43:8080/getBikes/${searchTerm}`);
-                }else{
-                    const response = await fetch('http://85.215.204.43:8080/allBikes'); // adresse damit es im localen netzwerk funktioniert
+                let response;
+
+                // Trim entfernt Leerzeichen am Anfang und Ende des Strings
+                const trimmedSearchTerm = searchTerm.trim();
+                
+                if (trimmedSearchTerm) {
+                    response = await fetch(`http://85.215.204.43:8080/getBikes/${trimmedSearchTerm}`);
+                } else {
+                    response = await fetch('http://85.215.204.43:8080/allBikes'); // adresse damit es im lokalen Netzwerk funktioniert
                 }
+
                 const data = await response.json();
                 setBikes(data); // Speichere die Daten im Zustand
             } catch (error) {
@@ -25,7 +30,7 @@ const MainContent = () => {
         };
 
         fetchData();
-    }, []); 
+    }, [searchTerm]); // `searchTerm` als Abhängigkeit hinzufügen
 
     const handleClick = () => {
         navigate(`/create`); 
@@ -36,10 +41,10 @@ const MainContent = () => {
         <div id="MainContent-div">
             <div id='searchbar-div'>
                 <input 
-                type='text' 
-                id='Searchbar'     
-                value={searchTerm} 
-                onChange={(e) => setSearchTerm(e.target.value)} />
+                    type='text' 
+                    id='Searchbar'     
+                    value={searchTerm} 
+                    onChange={(e) => setSearchTerm(e.target.value)} />
                 
                 <select name="dropdown" id="dropdown">
                     <option value="Alter">Alter</option>
