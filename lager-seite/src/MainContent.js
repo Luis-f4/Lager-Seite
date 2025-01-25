@@ -1,36 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import './MainCOntent.css';
+import './MainContent.css';
 import BikeWindow from './BikeWindow';
 import { useNavigate } from 'react-router-dom';
 
 const MainContent = () => {
     const [bikes, setBikes] = useState([]); // Zustand für die Bikes
+    const [searchQuery, setSearchQuery] = useState(''); // Zustand für die Suchleiste
     const navigate = useNavigate(); 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                //const response = await fetch('http://localhost:8080/allBikes'); echte adresse
-                const response = await fetch('http://85.215.204.43:8080/allBikes'); // adresse damit es im localen netzwerk funktioniert
-                const data = await response.json();
-                setBikes(data); // Speichere die Daten im Zustand
-            } catch (error) {
-                console.error('Fehler beim Abrufen der Daten:', error);
-            }
-        };
+    // Funktion zum Abrufen der Daten
+    const fetchData = async (query = '') => {
+        try {
+            const response = await fetch(`http://85.215.204.43:8080/getBikes/${query}`); // API-Aufruf mit dem Suchbegriff
+            const data = await response.json();
+            setBikes(data); // Speichere die Daten im Zustand
+        } catch (error) {
+            console.error('Fehler beim Abrufen der Daten:', error);
+        }
+    };
 
-        fetchData();
-    }, []); 
+    // useEffect zum Abrufen der Daten bei der Initialisierung und beim Ändern des Suchbegriffs
+    useEffect(() => {
+        // Debounce-Mechanismus: API-Aufruf nur nach einer kurzen Verzögerung
+        const timeoutId = setTimeout(() => {
+            fetchData(searchQuery); // Abrufen der Daten mit dem aktuellen Suchbegriff
+        }, 300); // 300ms Verzögerung
+
+        return () => clearTimeout(timeoutId); // Timeout bei neuen Eingaben abbrechen
+    }, [searchQuery]); // Wird jedes Mal ausgeführt, wenn sich searchQuery ändert
 
     const handleClick = () => {
         navigate(`/create`); 
     };
-    
 
     return (
         <div id="MainContent-div">
             <div id='searchbar-div'>
-                <input type='text' id='Searchbar' />
+                {/* Eingabe für die Suchleiste */}
+                <input
+                    type='text'
+                    id='Searchbar'
+                    placeholder='Suche nach Bikes...'
+                    value={searchQuery} // Wert aus dem Zustand
+                    onChange={(e) => setSearchQuery(e.target.value)} // Aktualisiere searchQuery bei Eingaben
+                />
                 <select name="dropdown" id="dropdown">
                     <option value="Alter">Alter</option>
                     <option value="wert">wert</option>
@@ -44,7 +57,7 @@ const MainContent = () => {
             </div>
 
             <div id='content-div'>
-                {/* Hier werden für jeden Bike-Datensatz ein BikeWindow gerendert */}
+                {/* Rendere für jedes Bike ein BikeWindow */}
                 {bikes.map((bike, index) => (
                     <BikeWindow key={index} bike={bike} />
                 ))}

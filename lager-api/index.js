@@ -40,6 +40,25 @@ app.get('/test', async (req, res) => {
   }
 });
 
+
+
+
+
+app.get('/getBikes/:name', async (req, res) => {
+  const name = req.params.name;
+  try {
+    const [results] = await db.query(
+      'SELECT * FROM `fahrrad` WHERE Name LIKE ?', 
+      [`%${name}%`] 
+    );
+    res.json(results);
+  } catch (err) {
+    console.error('Fehler beim Abrufen der Daten:', err);
+    res.status(500).send('Fehler beim Abrufen der Daten');
+  }
+});
+
+
 app.get('/allBikes', async (req, res) => {
   try {
     const [results] = await db.query('SELECT * FROM fahrrad');
